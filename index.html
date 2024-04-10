@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interativo</title>
+    <style>
+        /* Estilos simples para melhorar a aparência */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+        .item {
+            cursor: pointer;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .time-img{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-items: center;
+            margin-bottom: 100px;
+        }
+        .item:hover {
+            background-color: greenyellow;
+        }
+        .descricao {
+            display: none;
+            margin: 15px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="time-img">
+    <span>
+        <h1>
+            Detalhes sobre os times
+        </h1>
+       
+    </span>
+    <img src="/times.jpeg">
+</div>
+<div id="lista-items">
+    <!-- Os itens serão preenchidos dinamicamente aqui -->
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const data = [
+            {
+                "id": 1,
+                "titulo": "Qual é o maior time de Minas Gerais ?",
+                "descricao": "Com toda certeza é o Cruzeiro"
+            },
+            {
+                "id": 2,
+                "titulo": "Por que o Cruzeiro é maior do que o Atlético ? ",
+                "descricao": "Por conta de 6 copas do Brasil e 26 Mineiros"
+            },
+            {
+                "id": 3,
+                "titulo": "Maior Ídolo do Cruzeiro nos tempos modernos ?",
+                "descricao": "Montijjo"
+            },
+            {
+                "id": 4,
+                "titulo": "Maior Técnico que atuou pelo Cruzeiro ?",
+                "descricao": "Vanderlei Luxemburgo"
+            },
+            {
+                "id": 5,
+                "titulo": "Maior Técnico que atuou pelo Cruzeiro ?",
+                "descricao": "Vanderlei Luxemburgo"
+            }
+        ];
+
+        const listaItems = document.getElementById('lista-items');
+
+        // Função para criar elementos de item e adicionar ao DOM
+        function criarItem(item) {
+            const div = document.createElement('div');
+            div.classList.add('item');
+            div.textContent = item.titulo;
+            div.addEventListener('click', function () {
+                exibirDescricao(item);
+            });
+            listaItems.appendChild(div);
+        }
+
+        // Função para exibir a descrição do item
+        function exibirDescricao(item) {
+            // Esconder todas as descrições
+            const descricoes = document.querySelectorAll('.descricao');
+            descricoes.forEach(descricao => {
+                descricao.style.display = 'none';
+            });
+
+            // Exibir a descrição do item clicado
+            const descricaoItem = document.getElementById(`descricao-${item.id}`);
+            descricaoItem.style.display = 'block';
+        }
+
+        // Preencher a lista com os itens
+        data.forEach(item => {
+            criarItem(item);
+
+            // Criar elemento de descrição para cada item
+            const descricao = document.createElement('div');
+            descricao.id = `descricao-${item.id}`;
+            descricao.classList.add('descricao');
+            descricao.textContent = item.descricao;
+            listaItems.appendChild(descricao);
+        });
+    });
+</script>
+
+</body>
+</html>
